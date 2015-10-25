@@ -35,7 +35,7 @@
 ## Vector for the column names form endData
 	ColNames = colnames(endData);
 
-# Extracts only the measurements on the mean and standard deviation for each measurement
+# 2 Extracts only the measurements on the mean and standard deviation for each measurement
 	logicalVector = (grepl("activity..",colNames) |
 		grepl("subject..",colNames) | grepl("-mean..",colNames) &
 		!grepl("-meanFreq..",colNames) & !grepl("mean..-",colNames) |
@@ -43,15 +43,15 @@
 	
 ## Subset endData from logical vectors	
 	endData = endData[logicalVector==TRUE];	
-## Use desc. activity names	to name the activities in the data set
+##3 Use desc. activity names	to name the activities in the data set
 
 ## Merge the endData with the activityType table to include names
 endData = merge(endData,activityType,by='activityId', all.x=TRUE);
-
+## Use desc. activity names	to name the activities in the data set
 # Update colNames
 colNames = colnames(endData);
 
-# Label the data set with the activity names 
+# 4. Label the data set with the activity names 
 
 for (i in 1:length(colNames)) 
 {
@@ -83,5 +83,5 @@ tidyData    = aggregate(endDataNoType[,names(endDataNoType) != c('activityType',
 # Merging tidyData with activityType to include descriptive names
 tidyData    = merge(tidyData,activityType,by='activityType',all.x=TRUE);
 
-# Write table for submission
+# Write table for submission of Course 'TidyData.txt' report
 write.table(tidyData, './tidyData.txt',row.names=FALSE,sep='\t');
